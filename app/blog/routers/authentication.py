@@ -3,13 +3,13 @@ from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from datetime import datetime, timedelta
 
-from .. import schemas, models
-from ..database import get_db
-from ..hashing import Hash
-from ..token import create_access_token,\
-                    ACCESS_TOKEN_EXPIRE_MINUTES
-from .. import oauth2
-from ..controllers import users
+from blog import schemas, models
+from blog.database import get_db
+from blog.hashing import Hash
+from blog.token import create_access_token,\
+                       ACCESS_TOKEN_EXPIRE_MINUTES
+from blog import oauth2
+from blog.controllers import users
 
 
 
@@ -41,9 +41,7 @@ def login(data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get
 
 
 @router.post("/signup", status_code = status.HTTP_201_CREATED)
-def create_user(request: schemas.User, db: Session = Depends(get_db),
-                current_user: schemas.User = Depends(oauth2.get_current_user)
-):
+def create_user(request: schemas.User, db: Session = Depends(get_db)):
     return users.create(request, db)
 
 
