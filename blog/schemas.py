@@ -7,6 +7,10 @@ class User(BaseModel):
     email: str
     password: str
 
+class UserSecured(BaseModel):
+    username: str
+    email: str
+
 class BlogBase(BaseModel):
     title: str
     content : str
@@ -19,14 +23,12 @@ class Blog(BlogBase):
 
 class UserShow(BaseModel):
     username: str
-    email: str
     blogs: List[Blog] = []
     class Config:
         orm_mode = True
 
 class UserShowLimited(BaseModel):
     username: str
-    email: str
     class Config:
         orm_mode = True
 
@@ -44,5 +46,12 @@ class BlogPatch(BaseModel):
 
 
 class Login(BaseModel):
-    username : str
+    email : str
     password : str
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class TokenData(BaseModel):
+    email: Optional[str] = None
