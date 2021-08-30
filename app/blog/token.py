@@ -15,6 +15,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
+    expires_delta = timedelta(minutes=expires_delta)
     to_encode = data.copy()
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
